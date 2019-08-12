@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>
+    <script src="./gdplib.js"></script>
+</head>
+<body> 
+    <script>
+
+
+var BreakoutD = new Phaser.Class({
+    
+    Extends: Phaser.Scene,
+
+    initialize:
+
+    function Breakout ()
+    {
+        Phaser.Scene.call(this, { key: 'breakout' });
+
+        this.bricks;
+        this.paddle;
+        this.ball;
+        this.logo;
+    },
+    moveX: function (speed, obj)
+    {
+        obj.setVelocityX(speed);
+    },
+
+    moveY: function (speed, obj)
+    {
+        obj.setVelocityY(speed);
+    },
+
+    preload: function ()
+    {
+        this.load.image('sky', 'white.jpg');
+        this.load.image('logo', 'DVD_logo.png');
+        this.load.image('red', 'http://labs.phaser.io/assets/particles/red.png');
+    },
+
+    create: function ()
+    {
+        var sky = this.add.image(960, 540, 'sky');
+        sky.setScale(100);
+        this.logo = this.physics.add.image(400, 100, 'logo');
+        this.logo.setScale(.5);
+        //logo.setVelocity(-100, -100);
+        this.moveX(100, this.logo);
+        this.moveY(100, this.logo);
+        this.logo.setBounce(1, 1);
+        this.logo.setCollideWorldBounds(true);
+    }
+
+});
+
+var config = {
+    type: Phaser.WEBGL,
+    width: 1920,
+    height: 1080,
+    parent: 'phaser-example',
+    scene: [ BreakoutD ],
+    physics: {
+        default: 'arcade'
+    }
+};
+
+var game = new Phaser.Game(config);
+
+    </script>
+
+</body>
+</html>
